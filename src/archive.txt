@@ -1,0 +1,41 @@
+
+api.on('connected', async () => {
+    const preparedTx = await api.prepareTransaction({
+        "TransactionType": "DepositPreauth",
+        "Account": "rLipFkSbqEK5FmwEppbMSNk35P6AKMudq4",
+        "Authorize": "rPkK3X6stw94K7byHsH9pkTgscrBqbXVMk",
+        "Fee": "10"
+    }, {
+        "maxLedgerVersionOffset": 75
+    });
+
+
+    const maxLedgerVersion = preparedTx.instructions.maxLedgerVersion
+    console.log("Prepared transaction instructions:", preparedTx.txJSON)
+    console.log("Transaction cost:", preparedTx.instructions.fee, "XRP")
+    console.log("Transaction expires after ledger:", maxLedgerVersion)
+
+    // signing transaction
+    const signed = api.sign(preparedTx.txJSON, "ss8nXtHi7LqAkmVjYWVCqUhsUfuou")
+    const txID = signed.id
+    const tx_blob = signed.signedTransaction
+    console.log("Identifying hash:", txID)
+    console.log("Signed blob:", tx_blob)
+
+
+    submitting tx to XRPL
+    const result = await api.submit(tx_blob)
+    console.log("Tentative result code:", result.resultCode)
+    console.log("Tentative result message:", result.resultMessage)
+    alert("DONE")
+
+
+});
+
+
+{
+    "TransactionType": "Payment",
+    "Account": "rP8RjzppsE34SeHD4YYZNaprKdqsGJRCk3",
+    "Amount": "2000000",
+    "Destination": "radBdVvjUDF1VGgJo5nLvyGEexpZcWtiHu"
+}
