@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Button, Row, Container, Col, Form, Alert} from "react-bootstrap";
+import {Card, Button, Row, Container, Col, Form, Alert, CardGroup, Badge} from "react-bootstrap";
 import {deriveKeypair, xrpToDrops} from "ripple-lib";
 import axios from "axios";
 
@@ -128,68 +128,68 @@ function App() {
     return (
         <div className="App">
             <Container>
-                <Row>
-                    <Col>
-                        <Card style={{width: '30rem'}}>
-                            <Card.Body>
-                                <Card.Title>Payer: rP8RjzppsE34SeHD4YYZNaprKdqsGJRCk3</Card.Title>
-                                <Card.Text>
-                                    Secret: sn5St2TYJSuBbanu81hH9GNUa3ZP8
-                                </Card.Text>
-                                <Form>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>XRP Amount</Form.Label>
-                                        <Form.Control type="number" placeholder="Amount in XRP" id={'amountXRP'}/>
-                                        <Button variant="primary" onClick={createPaymentChannel}>Create payment
-                                            channel</Button>
-                                    </Form.Group>
-                                </Form>
+                <CardGroup>
+                    <Card style={{width: '30rem'}}>
+                        <Card.Header>Create payment channel</Card.Header>
+                        <Card.Body>
+                            <Card.Title><Badge bg={'secondary'}> Payer</Badge></Card.Title>
+                            <Card.Text>
+                                Address: rP8RjzppsE34SeHD4YYZNaprKdqsGJRCk3
+                                Secret: sn5St2TYJSuBbanu81hH9GNUa3ZP8
+                            </Card.Text>
+                            <Form>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>XRP Amount</Form.Label>
+                                    <Form.Control type="number" placeholder="Amount in XRP" id={'amountXRP'}/>
+                                    <Button variant="primary" onClick={createPaymentChannel}>Create payment
+                                        channel</Button>
+                                </Form.Group>
+                            </Form>
 
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card style={{width: '30rem'}}>
-                            <Card.Body>
-                                <Card.Title>Receiver: radBdVvjUDF1VGgJo5nLvyGEexpZcWtiHu</Card.Title>
-                                <Card.Text>
-                                    Secret: snnowQVoWEsS64KDvbtnrECGyFgnf
-                                </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card style={{width: '30rem'}}>
+                        <Card.Header>Verify Claim</Card.Header>
+                        <Card.Body>
+                            <Card.Title></Card.Title>
+                            <Card.Text>
                                 <Form>
                                     <Form.Label>XRP Amount</Form.Label>
-                                    <Form.Control type="number" placeholder="XRP claim" id={'makeClaimAmountXRPClaim'}/>
+                                    <Form.Control type="number" placeholder="XRP claim"
+                                                  id={'amountVerifyXRPClaim'}/>
                                     <Form.Label>Channel ID</Form.Label>
-                                    <Form.Control type="text" placeholder="Channel ID" id={'makeClaimChannelID'}/>
-                                    <Form.Label>Signature</Form.Label>
-                                    <Form.Control type="text" placeholder="Signature" id={'makeClaimSignature'}/>
-                                    <Button variant="primary" onClick={makeClaim}>Make claim</Button>
+                                    <Form.Control type="text" placeholder="Channel ID" id={'verifyChannelID'}/>
+                                    <Form.Label>Secret</Form.Label>
+                                    <Form.Control type="text" placeholder="Secret" id={'secret'}/>
+                                    <Button variant="primary" onClick={verifyClaim}>Verify claim</Button>
                                 </Form>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card style={{width: '30rem'}}>
-                            <Card.Body>
-                                <Card.Title>Verify Claim</Card.Title>
-                                <Card.Text>
-                                    <Form>
-                                        <Form.Label>XRP Amount</Form.Label>
-                                        <Form.Control type="number" placeholder="XRP claim"
-                                                      id={'amountVerifyXRPClaim'}/>
-                                        <Form.Label>Channel ID</Form.Label>
-                                        <Form.Control type="text" placeholder="Channel ID" id={'verifyChannelID'}/>
-                                        <Form.Label>Secret</Form.Label>
-                                        <Form.Control type="text" placeholder="Secret" id={'secret'}/>
-                                        <Button variant="primary" onClick={verifyClaim}>Verify claim</Button>
-                                    </Form>
-                                    <Alert>
-                                        <p id={'signatureStatus'}></p>
-                                    </Alert>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
+                                <Alert>
+                                    <p id={'signatureStatus'}></p>
+                                </Alert>
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card style={{width: '30rem'}}>
+                        <Card.Header>Make claim</Card.Header>
+                        <Card.Body>
+                            <Card.Title><Badge bg={'secondary'}>Receiver</Badge></Card.Title>
+                            <Card.Text>
+                                Address: radBdVvjUDF1VGgJo5nLvyGEexpZcWtiHu
+                                Secret: snnowQVoWEsS64KDvbtnrECGyFgnf
+                            </Card.Text>
+                            <Form>
+                                <Form.Label>XRP Amount</Form.Label>
+                                <Form.Control type="number" placeholder="XRP claim" id={'makeClaimAmountXRPClaim'}/>
+                                <Form.Label>Channel ID</Form.Label>
+                                <Form.Control type="text" placeholder="Channel ID" id={'makeClaimChannelID'}/>
+                                <Form.Label>Signature</Form.Label>
+                                <Form.Control type="text" placeholder="Signature" id={'makeClaimSignature'}/>
+                                <Button variant="primary" onClick={makeClaim}>Make claim</Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+
+                </CardGroup>
             </Container>
         </div>
     );
